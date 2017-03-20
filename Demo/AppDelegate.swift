@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
 
         //Like Tinder s2
         let controller = AHPagingMenuViewController(controllers: [v1,v2,v4,v3], icons: NSArray(array: [UIImage(named:"photo")!,UIImage(named:"map")!, UIImage(named:"color")!, UIImage(named:"conf")!]), position:0)
-        controller.setShowArrow(false)
+        controller.setShowArrow(true)
         controller.setTransformScale(true)
         controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
         controller.setSelectColor(UIColor(red: 0.963, green: 0.266, blue: 0.176, alpha: 1.000))

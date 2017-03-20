@@ -123,6 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				65DBCE3E1AFFA53E00F84E67 /* AppDelegate.swift */,
+				9A1D010F1E7A2DEE00268F4E /* CamViewController.swift */,
+				9A1D01111E7A32DD00268F4E /* CamViewController.storyboard */,
 				9A11568E1E78D23C003F2602 /* MapViewController.swift */,
 				9A1156901E78D277003F2602 /* Location.swift */,
 				65ECC1C61B0A4D91002958AF /* ExampleViewController.swift */,
@@ -140,8 +142,6 @@
 				9A1156841E78C90E003F2602 /* arrowRight@3x.png */,
 				9A1156851E78C90E003F2602 /* arrowRight@4x.png */,
 				65DBCE3C1AFFA53E00F84E67 /* Supporting Files */,
-				9A1D010F1E7A2DEE00268F4E /* CamViewController.swift */,
-				9A1D01111E7A32DD00268F4E /* CamViewController.storyboard */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
