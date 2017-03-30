@@ -18,6 +18,11 @@ class CamViewController: UIViewController {
     var previewLayer = AVCaptureVideoPreviewLayer() //visible to user
     var captureImageView = UIImageView() // displayed to user after taking a photo
     
+    var captureButton = UIButton()
+    
+    var deleteButton = UIButton()
+    var sendButton = UIButton()
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         let devices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
@@ -66,13 +71,11 @@ class CamViewController: UIViewController {
         }
         
         //capture button
-        
-        let myFirstButton = UIButton()
-        myFirstButton.setTitle("Capture", forState: .Normal)
-        myFirstButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        myFirstButton.frame = CGRectMake(15, -50, 325, 1050)
-        myFirstButton.addTarget(self, action: #selector(CamViewController.captureImage(_:)), forControlEvents: .TouchUpInside)
-        self.view.addSubview(myFirstButton)
+        captureButton.setTitle("Capture", forState: .Normal)
+        captureButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        captureButton.frame = CGRectMake(15, -50, 325, 1050)
+        captureButton.addTarget(self, action: #selector(CamViewController.captureImage(_:)), forControlEvents: .TouchUpInside)
+        self.view.addSubview(captureButton)
     }
     
     func captureImage(sender: UIButton) {
@@ -94,7 +97,43 @@ class CamViewController: UIViewController {
                 
                 print("writing image data to somewhere...")
                 //write imageData to somewhere
+                
+                //Create delete icon
+                
+                self.deleteButton = UIButton(frame: CGRectMake(20,20,30,30))
+                self.deleteButton.addTarget(self, action: "deleteCapture:", forControlEvents: UIControlEvents.TouchUpInside)
+                self.deleteButton.setImage(UIImage(named: "transparent_x.png"), forState: UIControlState.Normal)
+                self.view.addSubview(self.deleteButton)
+                
+                //remove capture button
+                self.captureButton.removeFromSuperview()
+                
+                //add send button
+                self.sendButton = UIButton(frame: CGRectMake(0,530,400,75))
+                self.sendButton.addTarget(self, action: "addToJaunt:", forControlEvents: UIControlEvents.TouchUpInside)
+                self.sendButton.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50)
+                self.sendButton.setTitle("Add to Jaunt", forState: UIControlState.Normal)
+                self.view.addSubview(self.sendButton)
+                
+                
             })
         }
+    }
+    
+    func deleteCapture(sender: UIButton) {
+        print("delete pushed")
+        self.deleteButton.removeFromSuperview()
+        self.sendButton.removeFromSuperview()
+        self.view.addSubview(captureButton)
+        self.captureImageView.image = nil
+        
+    }
+    
+    func addToJaunt(sender: UIButton) {
+        print("adding to Jaunt")
+        
+        //write imageData to somewhere
+        
+        
     }
 }
