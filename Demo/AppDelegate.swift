@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
         
         let v2 = MapViewController()
 //        v2.view.backgroundColor = UIColor.blackColor()
-        let v3 = Example5ViewController(nibName: "Example5ViewController", bundle: nil)
+        let v3 = SettingsViewController()
         let v4 = ExampleViewController()
         v4.view.backgroundColor = UIColor.greenColor()
         

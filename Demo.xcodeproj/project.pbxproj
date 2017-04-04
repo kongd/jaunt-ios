@@ -27,6 +27,8 @@
 		9A1156911E78D277003F2602 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1156901E78D277003F2602 /* Location.swift */; };
 		9A1D01101E7A2DEE00268F4E /* CamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1D010F1E7A2DEE00268F4E /* CamViewController.swift */; };
 		9A1D01121E7A32DD00268F4E /* CamViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D01111E7A32DD00268F4E /* CamViewController.storyboard */; };
+		9A77E1731E93318C00FA8D2C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A77E1721E93318C00FA8D2C /* SettingsViewController.swift */; };
+		9A77E1751E933E5400FA8D2C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A77E1741E933E5400FA8D2C /* Globals.swift */; };
 		9A977DB31E8B5A1C00C83646 /* transparent_x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A977DB21E8B5A1C00C83646 /* transparent_x.png */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +84,8 @@
 		9A1156901E78D277003F2602 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		9A1D010F1E7A2DEE00268F4E /* CamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CamViewController.swift; sourceTree = "<group>"; };
 		9A1D01111E7A32DD00268F4E /* CamViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CamViewController.storyboard; sourceTree = "<group>"; };
+		9A77E1721E93318C00FA8D2C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		9A77E1741E933E5400FA8D2C /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		9A977DB21E8B5A1C00C83646 /* transparent_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transparent_x.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,7 +129,9 @@
 			isa = PBXGroup;
 			children = (
 				65DBCE3E1AFFA53E00F84E67 /* AppDelegate.swift */,
+				9A77E1741E933E5400FA8D2C /* Globals.swift */,
 				9A1D010F1E7A2DEE00268F4E /* CamViewController.swift */,
+				9A77E1721E93318C00FA8D2C /* SettingsViewController.swift */,
 				9A1D01111E7A32DD00268F4E /* CamViewController.storyboard */,
 				9A11568E1E78D23C003F2602 /* MapViewController.swift */,
 				9A1156901E78D277003F2602 /* Location.swift */,
@@ -319,6 +325,8 @@
 				9A11568F1E78D23C003F2602 /* MapViewController.swift in Sources */,
 				9A1156911E78D277003F2602 /* Location.swift in Sources */,
 				65ECC1CB1B0A6333002958AF /* Example5ViewController.swift in Sources */,
+				9A77E1731E93318C00FA8D2C /* SettingsViewController.swift in Sources */,
+				9A77E1751E933E5400FA8D2C /* Globals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
