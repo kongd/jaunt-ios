@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 
-var loggedInUser  = ""
-var sendLocation = true
-
 let SCREEN_WIDTH = UIScreen.mainScreen().bounds.width
 let SCREEN_HEIGHT = UIScreen.mainScreen().bounds.height
+
+
+// KEYS: loggedInUser, location, which Jaunt
+let defaults = NSUserDefaults.standardUserDefaults()

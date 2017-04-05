@@ -132,8 +132,19 @@ class CamViewController: UIViewController {
     func addToJaunt(sender: UIButton) {
         print("adding to Jaunt")
         
+        if defaults.stringForKey("loggedInUser") == "" {
+            let alert = UIAlertController(title: "Not Logged In", message: "You aren't logged in yet!", preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Log In", style: UIAlertActionStyle.Default, handler:  {(action:UIAlertAction!) in self.goToLogin()
+            }))
+        }
+        
         //write imageData to somewhere
         
         
+    }
+    
+    func goToLogin() {
+        self.pagingMenuViewController().setPosition(self.pagingMenuViewController().viewControllers!.count - 1, animated: true)
     }
 }
