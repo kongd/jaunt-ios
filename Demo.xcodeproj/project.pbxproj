@@ -11,9 +11,9 @@
 		65DBCE461AFFA53E00F84E67 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65DBCE451AFFA53E00F84E67 /* Images.xcassets */; };
 		65DBCE491AFFA53F00F84E67 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65DBCE471AFFA53F00F84E67 /* LaunchScreen.xib */; };
 		65DBCE5F1B001C5900F84E67 /* AHPagingMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBCE5E1B001C5900F84E67 /* AHPagingMenuViewController.swift */; };
-		65ECC1C71B0A4D91002958AF /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ECC1C61B0A4D91002958AF /* ExampleViewController.swift */; };
 		65ECC1C91B0A6315002958AF /* Example5ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ECC1C81B0A6315002958AF /* Example5ViewController.xib */; };
 		65ECC1CB1B0A6333002958AF /* Example5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ECC1CA1B0A6333002958AF /* Example5ViewController.swift */; };
+		9A10D0491E9ABED500926832 /* ReelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A10D0481E9ABED500926832 /* ReelViewController.swift */; };
 		9A1156861E78C90E003F2602 /* arrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A11567E1E78C90E003F2602 /* arrowLeft.png */; };
 		9A1156871E78C90E003F2602 /* arrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A11567F1E78C90E003F2602 /* arrowLeft@2x.png */; };
 		9A1156881E78C90E003F2602 /* arrowLeft@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1156801E78C90E003F2602 /* arrowLeft@3x.png */; };
@@ -26,6 +26,7 @@
 		9A1156911E78D277003F2602 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1156901E78D277003F2602 /* Location.swift */; };
 		9A1D01101E7A2DEE00268F4E /* CamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1D010F1E7A2DEE00268F4E /* CamViewController.swift */; };
 		9A1D01121E7A32DD00268F4E /* CamViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D01111E7A32DD00268F4E /* CamViewController.storyboard */; };
+		9A40CBD91E95DD370031DB96 /* MaterialCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40CBD81E95DD370031DB96 /* MaterialCard.swift */; };
 		9A54AA4C1E946F1A006556F2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A54AA4B1E946F1A006556F2 /* GoogleService-Info.plist */; };
 		9A77E1731E93318C00FA8D2C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A77E1721E93318C00FA8D2C /* SettingsViewController.swift */; };
 		9A77E1751E933E5400FA8D2C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A77E1741E933E5400FA8D2C /* Globals.swift */; };
@@ -52,7 +53,6 @@
 		65DBCE481AFFA53F00F84E67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		65DBCE4E1AFFA53F00F84E67 /* DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65DBCE5E1B001C5900F84E67 /* AHPagingMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AHPagingMenuViewController.swift; sourceTree = "<group>"; };
-		65ECC1C61B0A4D91002958AF /* ExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		65ECC1C81B0A6315002958AF /* Example5ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Example5ViewController.xib; sourceTree = "<group>"; };
 		65ECC1CA1B0A6333002958AF /* Example5ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Example5ViewController.swift; sourceTree = "<group>"; };
 		65ECC1CC1B0AD455002958AF /* backgroud_test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backgroud_test.jpg; sourceTree = "<group>"; };
@@ -73,6 +73,7 @@
 		65ECC1DB1B0AD455002958AF /* photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo@2x.png"; sourceTree = "<group>"; };
 		65ECC1DC1B0AD455002958AF /* photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo@3x.png"; sourceTree = "<group>"; };
 		6D560F8C4CA45F620B9F6CF0 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		9A10D0481E9ABED500926832 /* ReelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReelViewController.swift; sourceTree = "<group>"; };
 		9A11567E1E78C90E003F2602 /* arrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowLeft.png; sourceTree = "<group>"; };
 		9A11567F1E78C90E003F2602 /* arrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowLeft@2x.png"; sourceTree = "<group>"; };
 		9A1156801E78C90E003F2602 /* arrowLeft@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowLeft@3x.png"; sourceTree = "<group>"; };
@@ -85,6 +86,7 @@
 		9A1156901E78D277003F2602 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		9A1D010F1E7A2DEE00268F4E /* CamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CamViewController.swift; sourceTree = "<group>"; };
 		9A1D01111E7A32DD00268F4E /* CamViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CamViewController.storyboard; sourceTree = "<group>"; };
+		9A40CBD81E95DD370031DB96 /* MaterialCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCard.swift; sourceTree = "<group>"; };
 		9A54AA4B1E946F1A006556F2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9A77E1721E93318C00FA8D2C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9A77E1741E933E5400FA8D2C /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
@@ -141,7 +143,7 @@
 				9A1D01111E7A32DD00268F4E /* CamViewController.storyboard */,
 				9A11568E1E78D23C003F2602 /* MapViewController.swift */,
 				9A1156901E78D277003F2602 /* Location.swift */,
-				65ECC1C61B0A4D91002958AF /* ExampleViewController.swift */,
+				9A10D0481E9ABED500926832 /* ReelViewController.swift */,
 				65ECC1CA1B0A6333002958AF /* Example5ViewController.swift */,
 				65ECC1C81B0A6315002958AF /* Example5ViewController.xib */,
 				65ECC1C51B0A4D57002958AF /* AHPagingMenuViewController */,
@@ -157,6 +159,7 @@
 				9A1156841E78C90E003F2602 /* arrowRight@3x.png */,
 				9A1156851E78C90E003F2602 /* arrowRight@4x.png */,
 				65DBCE3C1AFFA53E00F84E67 /* Supporting Files */,
+				9A40CBD81E95DD370031DB96 /* MaterialCard.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -378,12 +381,13 @@
 			files = (
 				9A1D01101E7A2DEE00268F4E /* CamViewController.swift in Sources */,
 				65DBCE5F1B001C5900F84E67 /* AHPagingMenuViewController.swift in Sources */,
+				9A10D0491E9ABED500926832 /* ReelViewController.swift in Sources */,
 				65DBCE3F1AFFA53E00F84E67 /* AppDelegate.swift in Sources */,
-				65ECC1C71B0A4D91002958AF /* ExampleViewController.swift in Sources */,
 				9A11568F1E78D23C003F2602 /* MapViewController.swift in Sources */,
 				9A1156911E78D277003F2602 /* Location.swift in Sources */,
 				65ECC1CB1B0A6333002958AF /* Example5ViewController.swift in Sources */,
 				9A77E1731E93318C00FA8D2C /* SettingsViewController.swift in Sources */,
+				9A40CBD91E95DD370031DB96 /* MaterialCard.swift in Sources */,
 				9A77E1751E933E5400FA8D2C /* Globals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

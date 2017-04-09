@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
     var window: UIWindow?
     
     override init() {
+        //Firebase configure, once per app lunch
         FIRApp.configure()
     }
 
@@ -25,14 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
         
         
         let storyboard = UIStoryboard(name: "CamViewController", bundle: nil)
-
         let v1 = storyboard.instantiateViewControllerWithIdentifier("CamViewController")
         
         let v2 = MapViewController()
-//        v2.view.backgroundColor = UIColor.blackColor()
         let v3 = SettingsViewController()
-        let v4 = ExampleViewController()
-        v4.view.backgroundColor = UIColor.greenColor()
+        let v4 = ReelViewController()
+        v4.view.backgroundColor = UIColor.lightGrayColor()
         
         //Default
         // var controller = AHPagingMenuViewController(controllers: [v1,v2,v3,v4,v5], icons: ["Page 1", "Page 2", "Page 3", "Page 4", "Page 5"], position:2)

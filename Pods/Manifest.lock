@@ -1,5 +1,5 @@
 PODS:
-  - BButton (4.0.2)
+  - Alamofire (3.5.0)
   - Firebase/Auth (3.15.0):
     - Firebase/Core
     - FirebaseAuth (= 3.1.1)
@@ -35,13 +35,13 @@ PODS:
   - GTMSessionFetcher/Core (1.1.9)
 
 DEPENDENCIES:
-  - BButton
+  - Alamofire (= 3.5.0)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
 
 SPEC CHECKSUMS:
-  BButton: ab0f2ed3b998ae73c5188b57d270d81e4a1eeb27
+  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
   Firebase: 2b1cdfba1cda8589f32904a697cc753322bff9d8
   FirebaseAnalytics: 0d1b7d81d5021155be37702a94ba1ec16d45365d
   FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
@@ -51,6 +51,6 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
 
-PODFILE CHECKSUM: 2083ef7645846ee76b28d419fe7b7fdc4a863758
+PODFILE CHECKSUM: ce9656941de76daf69cbdd752f4c546d0876cead
 
 COCOAPODS: 1.2.0

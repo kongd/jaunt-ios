@@ -46,11 +46,11 @@ class Example5ViewController: UIViewController {
 
     @IBAction func addController(sender: AnyObject)
     {
-        let newController = ExampleViewController()
-        newController.view.backgroundColor = self.getRandomColor();
-        self.pagingMenuViewController().addNewController(newController, title: "New \(current)")
-        self.pagingMenuViewController().setPosition(self.pagingMenuViewController().viewControllers!.count - 1, animated: true)
-        self.current++;
+//        let newController = ExampleViewController()
+//        newController.view.backgroundColor = self.getRandomColor();
+//        self.pagingMenuViewController().addNewController(newController, title: "New \(current)")
+//        self.pagingMenuViewController().setPosition(self.pagingMenuViewController().viewControllers!.count - 1, animated: true)
+//        self.current++;
     }
     
     @IBAction func goLast(sender: AnyObject)

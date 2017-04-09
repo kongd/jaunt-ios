@@ -71,7 +71,7 @@ class CamViewController: UIViewController {
         }
         
         //capture button
-        captureButton.setTitle("Capture", forState: .Normal)
+        captureButton.setTitle("", forState: .Normal)
         captureButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
         captureButton.frame = CGRectMake(15, -50, 325, 1050)
         captureButton.addTarget(self, action: #selector(CamViewController.captureImage(_:)), forControlEvents: .TouchUpInside)
@@ -109,7 +109,7 @@ class CamViewController: UIViewController {
                 self.captureButton.removeFromSuperview()
                 
                 //add send button
-                self.sendButton = UIButton(frame: CGRectMake(0,530,400,75))
+                self.sendButton = UIButton(frame: CGRectMake(0,530,SCREEN_WIDTH,75))
                 self.sendButton.addTarget(self, action: "addToJaunt:", forControlEvents: UIControlEvents.TouchUpInside)
                 self.sendButton.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50)
                 self.sendButton.setTitle("Add to Jaunt", forState: UIControlState.Normal)
@@ -135,7 +135,12 @@ class CamViewController: UIViewController {
         if defaults.stringForKey("loggedInUser") == "" {
             let alert = UIAlertController(title: "Not Logged In", message: "You aren't logged in yet!", preferredStyle: UIAlertControllerStyle.Alert)
             self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Log In", style: UIAlertActionStyle.Default, handler:  {(action:UIAlertAction!) in self.goToLogin()
+            alert.addAction(UIAlertAction(title: "Log In", style: UIAlertActionStyle.Default, handler:  {(action:UIAlertAction!) in self.goToSettings()
+            }))
+        } else if defaults.stringForKey("shortcode") == "" {
+            let alert = UIAlertController(title: "Not in a Jaunt", message: "You haven't joined a Jaunt yet!", preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Join Jaunt", style: UIAlertActionStyle.Default, handler:  {(action:UIAlertAction!) in self.goToSettings()
             }))
         }
         
@@ -144,7 +149,7 @@ class CamViewController: UIViewController {
         
     }
     
-    func goToLogin() {
+    func goToSettings() {
         self.pagingMenuViewController().setPosition(self.pagingMenuViewController().viewControllers!.count - 1, animated: true)
     }
 }
