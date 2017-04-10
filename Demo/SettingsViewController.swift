@@ -29,6 +29,23 @@ var activityIndicator = UIActivityIndicatorView()
 class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     func buildSettingsView() {
+        if var test_var = defaults.stringForKey("loggedInUser") {
+            print ("already opened")
+        } else {
+            print ("first launch, setting default value.")
+            defaults.setObject("", forKey: "loggedInUser")
+        }
+        
+        if var test_var_again = defaults.stringForKey("shortcode") {
+            print ("already opened")
+        } else {
+            print ("first launch, setting default again.")
+            defaults.setObject("", forKey: "shortcode")
+        }
+        
+        
+        
+        
         print ("redrawing settings view...")
         if defaults.stringForKey("loggedInUser") == "" {
             view.removeAllSubviews()
@@ -116,56 +133,59 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             jauntLabel.attributedText = NSMutableAttributedString(string: "Your Jaunt", attributes: [NSForegroundColorAttributeName: UIColor.blackColor(), NSFontAttributeName: UIFont.systemFontOfSize(22)])
             jauntCard.addSubview(jauntLabel)
             
-            print (defaults.stringForKey("shortcode")!)
-            if (defaults.stringForKey("shortcode")! != "") {
-                
-                let jauntNameLabel = UILabel(frame: CGRectMake(10, 30, SCREEN_WIDTH - 20, 40))
-                jauntNameLabel.attributedText = NSMutableAttributedString(string: "Current ongoing Jaunt: " + defaults.stringForKey("shortcode")!, attributes: [NSForegroundColorAttributeName: UIColor.blackColor(), NSFontAttributeName: UIFont.systemFontOfSize(15)])
-                jauntCard.addSubview(jauntNameLabel)
+            print (defaults.stringForKey("shortcode"))
+            if let code = defaults.stringForKey("shortcode")
+            {
+                if (code != "") {
+                    
+                    let jauntNameLabel = UILabel(frame: CGRectMake(10, 30, SCREEN_WIDTH - 20, 40))
+                    jauntNameLabel.attributedText = NSMutableAttributedString(string: "Current ongoing Jaunt: " + code, attributes: [NSForegroundColorAttributeName: UIColor.blackColor(), NSFontAttributeName: UIFont.systemFontOfSize(15)])
+                    jauntCard.addSubview(jauntNameLabel)
 
-                let leaveJauntButton = UIButton(frame: CGRectMake(10 , 110, (SCREEN_WIDTH - 15), 60))
-                leaveJauntButton.setTitle("Leave Jaunt", forState: UIControlState.Normal)
-                leaveJauntButton.setTitleColor(cardTextGray, forState: UIControlState.Normal)
-                leaveJauntButton.layer.cornerRadius = 4.0
-                leaveJauntButton.layer.borderWidth = 3.0
-                leaveJauntButton.layer.borderColor = cardTextGray.CGColor
-                leaveJauntButton.titleLabel?.font = UIFont.systemFontOfSize(20)
-                leaveJauntButton.addTarget(self, action: "leaveJaunt:", forControlEvents: UIControlEvents.TouchUpInside)
-                jauntCard.addSubview(leaveJauntButton)
-                
-                
-            } else {
-                jauntTextField = UITextField(frame: CGRectMake(10, 50, SCREEN_WIDTH - 20, 40))
-                jauntTextField.placeholder = "jaunt name"
-                jauntTextField.font = UIFont.systemFontOfSize(15)
-                jauntTextField.borderStyle = UITextBorderStyle.RoundedRect
-                jauntTextField.autocorrectionType = UITextAutocorrectionType.No
-                jauntTextField.keyboardType = UIKeyboardType.Default
-                jauntTextField.returnKeyType = UIReturnKeyType.Done
-                jauntTextField.clearButtonMode = UITextFieldViewMode.WhileEditing;
-                jauntTextField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
-                jauntTextField.delegate = self
-                jauntCard.addSubview(jauntTextField)
-                
-                let createJauntButton = UIButton(frame: CGRectMake(10, 110, (SCREEN_WIDTH - 15 * 2) / 2, 60))
-                createJauntButton.setTitle("Create Jaunt", forState: UIControlState.Normal)
-                createJauntButton.setTitleColor(cardTextGray, forState: UIControlState.Normal)
-                createJauntButton.layer.cornerRadius = 4.0
-                createJauntButton.layer.borderWidth = 3.0
-                createJauntButton.layer.borderColor = cardTextGray.CGColor
-                createJauntButton.titleLabel?.font = UIFont.systemFontOfSize(20)
-                createJauntButton.addTarget(self, action: "createJaunt:", forControlEvents: UIControlEvents.TouchUpInside)
-                jauntCard.addSubview(createJauntButton)
-                
-                let joinJauntButton = UIButton(frame: CGRectMake((SCREEN_WIDTH / 2) + 10 , 110, (SCREEN_WIDTH - 15 * 2) / 2, 60))
-                joinJauntButton.setTitle("Join Jaunt", forState: UIControlState.Normal)
-                joinJauntButton.setTitleColor(cardTextGray, forState: UIControlState.Normal)
-                joinJauntButton.layer.cornerRadius = 4.0
-                joinJauntButton.layer.borderWidth = 3.0
-                joinJauntButton.layer.borderColor = cardTextGray.CGColor
-                joinJauntButton.titleLabel?.font = UIFont.systemFontOfSize(20)
-                joinJauntButton.addTarget(self, action: "joinJaunt:", forControlEvents: UIControlEvents.TouchUpInside)
-                jauntCard.addSubview(joinJauntButton)
+                    let leaveJauntButton = UIButton(frame: CGRectMake(10 , 110, (SCREEN_WIDTH - 15), 60))
+                    leaveJauntButton.setTitle("Leave Jaunt", forState: UIControlState.Normal)
+                    leaveJauntButton.setTitleColor(cardTextGray, forState: UIControlState.Normal)
+                    leaveJauntButton.layer.cornerRadius = 4.0
+                    leaveJauntButton.layer.borderWidth = 3.0
+                    leaveJauntButton.layer.borderColor = cardTextGray.CGColor
+                    leaveJauntButton.titleLabel?.font = UIFont.systemFontOfSize(20)
+                    leaveJauntButton.addTarget(self, action: "leaveJaunt:", forControlEvents: UIControlEvents.TouchUpInside)
+                    jauntCard.addSubview(leaveJauntButton)
+                    
+                    
+                } else {
+                    jauntTextField = UITextField(frame: CGRectMake(10, 50, SCREEN_WIDTH - 20, 40))
+                    jauntTextField.placeholder = "jaunt name"
+                    jauntTextField.font = UIFont.systemFontOfSize(15)
+                    jauntTextField.borderStyle = UITextBorderStyle.RoundedRect
+                    jauntTextField.autocorrectionType = UITextAutocorrectionType.No
+                    jauntTextField.keyboardType = UIKeyboardType.Default
+                    jauntTextField.returnKeyType = UIReturnKeyType.Done
+                    jauntTextField.clearButtonMode = UITextFieldViewMode.WhileEditing;
+                    jauntTextField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
+                    jauntTextField.delegate = self
+                    jauntCard.addSubview(jauntTextField)
+                    
+                    let createJauntButton = UIButton(frame: CGRectMake(10, 110, (SCREEN_WIDTH - 15 * 2) / 2, 60))
+                    createJauntButton.setTitle("Create Jaunt", forState: UIControlState.Normal)
+                    createJauntButton.setTitleColor(cardTextGray, forState: UIControlState.Normal)
+                    createJauntButton.layer.cornerRadius = 4.0
+                    createJauntButton.layer.borderWidth = 3.0
+                    createJauntButton.layer.borderColor = cardTextGray.CGColor
+                    createJauntButton.titleLabel?.font = UIFont.systemFontOfSize(20)
+                    createJauntButton.addTarget(self, action: "createJaunt:", forControlEvents: UIControlEvents.TouchUpInside)
+                    jauntCard.addSubview(createJauntButton)
+                    
+                    let joinJauntButton = UIButton(frame: CGRectMake((SCREEN_WIDTH / 2) + 10 , 110, (SCREEN_WIDTH - 15 * 2) / 2, 60))
+                    joinJauntButton.setTitle("Join Jaunt", forState: UIControlState.Normal)
+                    joinJauntButton.setTitleColor(cardTextGray, forState: UIControlState.Normal)
+                    joinJauntButton.layer.cornerRadius = 4.0
+                    joinJauntButton.layer.borderWidth = 3.0
+                    joinJauntButton.layer.borderColor = cardTextGray.CGColor
+                    joinJauntButton.titleLabel?.font = UIFont.systemFontOfSize(20)
+                    joinJauntButton.addTarget(self, action: "joinJaunt:", forControlEvents: UIControlEvents.TouchUpInside)
+                    jauntCard.addSubview(joinJauntButton)
+                }
             }
             
             let logoutCard = MaterialCard(frame: CGRectMake(0, 330, SCREEN_WIDTH, 160))
@@ -176,8 +196,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             logoutCard.addSubview(logoutLabel)
             
             let accountLabel = UILabel(frame: CGRectMake(10, 30, SCREEN_WIDTH - 20, 40))
-            accountLabel.attributedText = NSMutableAttributedString(string: "Logged in as: " + defaults.stringForKey("loggedInUser")!, attributes: [NSForegroundColorAttributeName: UIColor.blackColor(), NSFontAttributeName: UIFont.systemFontOfSize(15)])
-            logoutCard.addSubview(accountLabel)
+            if let user = defaults.stringForKey("loggedInUser") {
+                accountLabel.attributedText = NSMutableAttributedString(string: "Logged in as: " + user, attributes: [NSForegroundColorAttributeName: UIColor.blackColor(), NSFontAttributeName: UIFont.systemFontOfSize(15)])
+                logoutCard.addSubview(accountLabel)
+            }
             
             let logoutButton = UIButton(frame: CGRectMake(10, 80, SCREEN_WIDTH - 20, 60))
             logoutButton.setTitle("Log Out", forState: UIControlState.Normal)
@@ -300,9 +322,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         defaults.setObject("", forKey: "loggedInUser")
         defaults.setObject("", forKey: "shortcode")
         defaults.setObject("", forKey: "uid")
-//        defualts.setObject("", forKey: "location")
+        defaults.setObject("", forKey: "location")
         buildSettingsView()
-        
     }
     
     // Privacy
@@ -310,12 +331,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         print("Switch value is \(sender.on)")
         
         if (sender.on == false) {
-            let alert = UIAlertController(title: "Location Tracking", message: "Users in this Jaunt will now be unable to see your location.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Location Tracking", message: "Users in all Jaunts will now be unable to see your location.", preferredStyle: UIAlertControllerStyle.Alert)
             self.presentViewController(alert, animated: true, completion: nil)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             defaults.setObject(false, forKey:"location")
         } else {
-            let alert = UIAlertController(title: "Location Tracking", message: "Users in this Jaunt will now be able to see your location. This may adversely affect battery life.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Location Tracking", message: "Users in all Jaunts will now be able to see your location. This may adversely affect battery life.", preferredStyle: UIAlertControllerStyle.Alert)
             self.presentViewController(alert, animated: true, completion: nil)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             defaults.setObject(true, forKey:"location")
@@ -342,6 +363,36 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 
             }
         }
+        
+//        paramets = [
+//            "
+//        ]
+//        
+//        Alamofire.request(.GET, "http://52.14.166.41:8000/api/membership/", parameters: parameters, encoding:.JSON).responseJSON
+//            { response in switch response.result {
+//            case .Success(let JSON):
+//                print("Success with JSON: \(JSON)")
+//                
+//                let response = JSON as! NSDictionary
+//                print(response)
+//                defaults.setObject(response["shortcode"], forKey: "shortcode")
+//                print(defaults)
+//                
+//                let alert = UIAlertController(title: "Jaunt created!", message: "You've now created the Jaunt '" + String(response["shortcode"]!) + "'. Give this code to your friends!", preferredStyle: UIAlertControllerStyle.Alert)
+//                self.presentViewController(alert, animated: true, completion: nil)
+//                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: {(action:UIAlertAction!) in self.buildSettingsView()
+//                }))
+//                
+//                
+//                
+//                
+//            case .Failure(let error):
+//                print("Request failed with error: \(error)")
+//                let alert = UIAlertController(title: "Network Error", message: "Looks like something went very wrong.", preferredStyle: UIAlertControllerStyle.Alert)
+//                self.presentViewController(alert, animated: true, completion: nil)
+//                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+//                }
+//        }
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             NSLog("############After login func")

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		65DBCE3F1AFFA53E00F84E67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBCE3E1AFFA53E00F84E67 /* AppDelegate.swift */; };
 		65DBCE461AFFA53E00F84E67 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65DBCE451AFFA53E00F84E67 /* Images.xcassets */; };
-		65DBCE491AFFA53F00F84E67 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65DBCE471AFFA53F00F84E67 /* LaunchScreen.xib */; };
 		65DBCE5F1B001C5900F84E67 /* AHPagingMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBCE5E1B001C5900F84E67 /* AHPagingMenuViewController.swift */; };
 		65ECC1C91B0A6315002958AF /* Example5ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ECC1C81B0A6315002958AF /* Example5ViewController.xib */; };
 		65ECC1CB1B0A6333002958AF /* Example5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ECC1CA1B0A6333002958AF /* Example5ViewController.swift */; };
@@ -50,7 +49,6 @@
 		65DBCE3D1AFFA53E00F84E67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65DBCE3E1AFFA53E00F84E67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65DBCE451AFFA53E00F84E67 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		65DBCE481AFFA53F00F84E67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		65DBCE4E1AFFA53F00F84E67 /* DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65DBCE5E1B001C5900F84E67 /* AHPagingMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AHPagingMenuViewController.swift; sourceTree = "<group>"; };
 		65ECC1C81B0A6315002958AF /* Example5ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Example5ViewController.xib; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 				65ECC1C81B0A6315002958AF /* Example5ViewController.xib */,
 				65ECC1C51B0A4D57002958AF /* AHPagingMenuViewController */,
 				65DBCE451AFFA53E00F84E67 /* Images.xcassets */,
-				65DBCE471AFFA53F00F84E67 /* LaunchScreen.xib */,
 				9A11567E1E78C90E003F2602 /* arrowLeft.png */,
 				9A11567F1E78C90E003F2602 /* arrowLeft@2x.png */,
 				9A1156801E78C90E003F2602 /* arrowLeft@3x.png */,
@@ -301,7 +298,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A11568B1E78C90E003F2602 /* arrowRight@2x.png in Resources */,
-				65DBCE491AFFA53F00F84E67 /* LaunchScreen.xib in Resources */,
 				9A11568D1E78C90E003F2602 /* arrowRight@4x.png in Resources */,
 				9A1D01121E7A32DD00268F4E /* CamViewController.storyboard in Resources */,
 				9A1156871E78C90E003F2602 /* arrowLeft@2x.png in Resources */,
@@ -408,17 +404,6 @@
 			targetProxy = 65DBCE4F1AFFA53F00F84E67 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		65DBCE471AFFA53F00F84E67 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65DBCE481AFFA53F00F84E67 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		65DBCE561AFFA53F00F84E67 /* Debug */ = {
