@@ -320,13 +320,15 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         defaults.setObject("", forKey: "shortcode")
         defaults.setObject("", forKey: "jauntid")
         paths = []
+        delegate.v4!.tableView.reloadData()
+        
         
         let parameters = [
             "user_id": defaults.stringForKey("uid")!,
             "shortcode":defaults.stringForKey("shortcode")!
         ]
         
-        Alamofire.request(.POST, "http://52.14.166.41:8000/api/jaunt/create/", parameters: parameters, encoding:.JSON).responseJSON
+        Alamofire.request(.POST, "http://52.14.166.41:8000/api/jaunt/leave/", parameters: parameters, encoding:.JSON).responseJSON
             { response in switch response.result {
             case .Success(let JSON):
                 print("Success with JSON: \(JSON)")
@@ -362,6 +364,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         // Dumps all existing photos
         print ("dropping photos...")
+        paths = []
         delegate.v4!.items = []
         delegate.v4!.imageList = []
         delegate.v4!.tableView.reloadData()
