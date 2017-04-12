@@ -257,7 +257,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 
             case .Failure(let error):
                 print("Request failed with error: \(error)")
-                let alert = UIAlertController(title: "Network Error", message: "Looks like something went very wrong.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Network Error", message: "Looks like something wrong.", preferredStyle: UIAlertControllerStyle.Alert)
                 self.presentViewController(alert, animated: true, completion: nil)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                 }
@@ -292,6 +292,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 } else {
                     
                     defaults.setObject(entered_shortcode, forKey: "shortcode")
+                    print (response["jaunt_id"]!)
+                    defaults.setObject(response["jaunt_id"]!, forKey: "jauntid")
                     print (jauntTextField.text!)
                     let alert = UIAlertController(title: "Successfully joined Jaunt!", message: "You're now part of '" + entered_shortcode + "'."	, preferredStyle: UIAlertControllerStyle.Alert)
                     self.presentViewController(alert, animated: true, completion: nil)
@@ -302,7 +304,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 
             case .Failure(let error):
                 print("Request failed with error: \(error)")
-                let alert = UIAlertController(title: "Network Error", message: "Looks like something went very wrong.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Network Error", message: "Looks like something went wrong.", preferredStyle: UIAlertControllerStyle.Alert)
                 self.presentViewController(alert, animated: true, completion: nil)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                 
@@ -316,6 +318,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     func leaveJaunt(sender: UIButton) {
         print("leaving jaunt...")
         defaults.setObject("", forKey: "shortcode")
+        defaults.setObject("", forKey: "jauntid")
+        paths = []
         
         let parameters = [
             "user_id": defaults.stringForKey("uid")!,
@@ -337,7 +341,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 
             case .Failure(let error):
                 print("Request failed with error: \(error)")
-                let alert = UIAlertController(title: "Network Error", message: "Looks like something went very wrong.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Network Error", message: "Looks like something went wrong.", preferredStyle: UIAlertControllerStyle.Alert)
                 self.presentViewController(alert, animated: true, completion: nil)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                 }
@@ -441,8 +445,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 print ("successfully created user")
                 
                 // Register with our server
-                print ("uid: " + defaults.stringForKey("uid")!)
-                print ("loggedInUser: " + defaults.stringForKey("loggedInUser")!)
+//                print ("uid: " + defaults.stringForKey("uid")!)
+//                print ("loggedInUser: " + defaults.stringForKey("loggedInUser")!)
                 
                 
                 

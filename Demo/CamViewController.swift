@@ -173,6 +173,11 @@ class CamViewController: UIViewController {
             uploadTask.observeStatus(FIRStorageTaskStatus.Success, handler: { (snapshot) in
                 print ("upload success!")
                 
+                let alert = UIAlertController(title: "Photo uploaded!", message: "Upload success!", preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(alert, animated: true, completion: nil)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: {(action:UIAlertAction!) in self.resetCameraView()
+                }))
+                
                 // get user, then post to api/photo
                 self.updateServer(randomName as String)
                 
@@ -219,53 +224,54 @@ class CamViewController: UIViewController {
         Alamofire.request(.GET, "http://52.14.166.41:8000/api/user/" + defaults.stringForKey("uid")! + "/", parameters: nil, encoding:.JSON).responseJSON
             { response in switch response.result {
             case .Success(let JSON):
-                print("Success with JSON: \(JSON)")
                 
                 let response = JSON as! NSDictionary
                 print(response)
                 defaults.setObject(response["current_jaunt"], forKey: "jauntid")
+                
+                
+                
+                
+                // Post to db, with photo info
+                let path_name = ("/images/" + randomString + ".jpg")
+                print ("jauntid")
+                print (defaults.integerForKey("jauntid"))
+                let parameters : [String : AnyObject] = [
+                    "owner": defaults.stringForKey("uid")!,
+                    "jaunt_id": defaults.integerForKey("jauntid"),
+                    "original_path": path_name,
+                    "latitude": TEST_LATITUDE,
+                    "longitude": TEST_LONGITUDE
+                ]
+                
+                Alamofire.request(.POST, "http://52.14.166.41:8000/api/photo/", parameters: parameters, encoding:.JSON).responseJSON
+                    { response in switch response.result {
+                    case .Success(let JSON):
+                        
+                        let response = JSON as! NSDictionary
+                        print(response)
+                        
+                        print ("actually completed upload operations")
+                        
+                    case .Failure(let error):
+                        print("Request failed with error: \(error)")
+                        let alert = UIAlertController(title: "Network Error", message: "Looks like something went wrong.", preferredStyle: UIAlertControllerStyle.Alert)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                        }
+                }
 
                 
             case .Failure(let error):
                 print("Request failed with error: \(error)")
-                let alert = UIAlertController(title: "Network Error", message: "Looks like something went very wrong.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Network Error", message: "Looks like something went wrong.", preferredStyle: UIAlertControllerStyle.Alert)
                 self.presentViewController(alert, animated: true, completion: nil)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                 }
         }
         
         
-        // Post to db, with info
-        let path_name = ("/images/" + randomString + ".jpg")
         
-        let parameters : [String : AnyObject] = [
-            "owner": defaults.stringForKey("uid")!,
-            "jaunt_id": defaults.integerForKey("jauntid"),
-            "original_path": path_name,
-            "latitude": TEST_LATITUDE,
-            "longitude": TEST_LONGITUDE
-        ]
-        
-        Alamofire.request(.POST, "http://52.14.166.41:8000/api/photo/", parameters: parameters, encoding:.JSON).responseJSON
-            { response in switch response.result {
-            case .Success(let JSON):
-                print("Success with JSON: \(JSON)")
-
-                let response = JSON as! NSDictionary
-                print(response)
-                
-                let alert = UIAlertController(title: "Photo uploaded!", message: "Upload success!", preferredStyle: UIAlertControllerStyle.Alert)
-                self.presentViewController(alert, animated: true, completion: nil)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: {(action:UIAlertAction!) in self.resetCameraView()
-                }))
-
-            case .Failure(let error):
-                print("Request failed with error: \(error)")
-                let alert = UIAlertController(title: "Network Error", message: "Looks like something went very wrong.", preferredStyle: UIAlertControllerStyle.Alert)
-                self.presentViewController(alert, animated: true, completion: nil)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-                }
-        }
         
         
     }

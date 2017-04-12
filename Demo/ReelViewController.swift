@@ -9,83 +9,154 @@
 import UIKit
 import Foundation
 import Firebase
-
-
-class RemoteAPI {
-    func getData(completionHandler: ((NSArray!, NSError!) -> Void)!) -> Void {
-        let url: NSURL = NSURL(string: "https://itunes.apple.com/search?term=google&media=software")!
-        let ses = NSURLSession.sharedSession()
-        let task = ses.dataTaskWithURL(url, completionHandler: {(data, response, error) in
-            if let data = data {
-                do {
-                    let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! NSDictionary
-
-//                    print (json["results"])
-                    return completionHandler(json["results"] as! [NSDictionary], nil)
-                } catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-            } else {
-                print ("error...")
-            }
-            
-        })
-        task.resume()
-    }
-}
+import FirebaseStorage
 
 
 
-var api = RemoteAPI()
 
 
+//class RemoteAPI {
+//    func getData(completionHandler: ((NSArray!, NSError!) -> Void)!) -> Void {
+//        let url: NSURL = NSURL(string: "https://itunes.apple.com/search?term=google&media=software")!
+//        let ses = NSURLSession.sharedSession()
+//        let task = ses.dataTaskWithURL(url, completionHandler: {(data, response, error) in
+//            if let data = data {
+//                do {
+//                    let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! NSDictionary
+//
+////                    print (json["results"])
+//                    return completionHandler(json["results"] as! [NSDictionary], nil)
+//                } catch let error as NSError {
+//                    print(error.localizedDescription)
+//                }
+//            } else {
+//                print ("error...")
+//            }
+//            
+//        })
+//        task.resume()
+//    }
+//}
+//
+//
+//
+//var api = RemoteAPI()
+
+var paths: [String] = []
 class ReelViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AHPagingMenuDelegate {
     var tableView: UITableView!
     var items: NSMutableArray = []
     var imageList: NSMutableArray = []
-    var left = true
+    var oldSize = 0
     
-    func ImageAPI () {
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: config)
-        if let url = NSURL(string: "https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150g"){
-            
-            let task = session.dataTaskWithURL(url, completionHandler: {data, response, error in
-                
-                if let err = error {
-                    print("Error: \(err)")
-                    return
-                }
-                
-                if let http = response as? NSHTTPURLResponse {
-                    if http.statusCode == 200 {
-                        let downloadedImage = UIImage(data: data!)
-                        dispatch_async(dispatch_get_main_queue(), {
-//                            self.testImageView.image = downloadedImage
-                        })
+    
+    
+    func updateTable() {
+        
+        
+        
+        
+        paths = []
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        
+        print ("jauntid:")
+        let jauntid = defaults.stringForKey("jauntid")!
+        print (jauntid)
+        if jauntid != "" {
+            self.tableView.hidden = false
+            print ("inside if")
+            ref.child("jaunt").child(jauntid).child("photos").observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
+                // Get user value
+                print ("observe event updating")
+                if let value = snapshot.value as? NSDictionary {
+                    print("value:")
+                    print(value)
+                    let photos = value
+                    
+                    for (key, val) in photos{
+                        if let path = val["thumbnail_path"] as? String {
+                            print (path)
+                            paths.append(path)
+                            
+                            //                let reference = FIRStorage.storage().referenceWithPath(val["thumbnail_path"]!)
+                        }
+                        
+                        
+                    }
+                    print ("reloading data")
+                    
+                    
+                    if (paths.count != self.oldSize) {
+                        print ("ACTUALLY RELOADING DATA")
+                        self.tableView.reloadData()
+                        self.oldSize = paths.count
+                        
+                    } else {
+                        print ("SKIP DATA RELOAD")
                     }
                 }
-            })
-            task.resume()
+            
+            
+            
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        } else {
+            print ("no jaunt")
+            
+            if (self.oldSize != 0) {
+                paths = []
+                print ("dumping table view, reloading with empty")
+                self.tableView.hidden = true
+                self.tableView.reloadData()
+                self.oldSize = 0
+            } else {
+                print ("SKIP DATA RELOAD with empty")
+            }
+            
         }
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.pagingMenuViewController().delegate = self
+        
+        updateTable()
         
         
-        var ref: FIRDatabaseReference!
+//
+//        
+//        // maybe this updates photos automatically
+//        // who knows
         
-        ref = FIRDatabase.database().reference()
+//        var refLive: FIRDatabaseReference!
+//        refLive = FIRDatabase.database().referenceWithPath("/jaunt/" + defaults.stringForKey("jauntid")! + "/photos/")
+        //
+//        refLive.observeEventType(FIRDataEventType.ChildAdded, withBlock: { (snapshot) -> Void in
+//            print ("detected update on fbase")
+//            let value = snapshot.value as? NSDictionary
+//            print("value:")
+//            print(value!)
+//            let photos = value!
+//            
+//            for (key, val) in photos{
+//                if let path = val["thumbnail_path"] as? String {
+//                    print (path)
+//                    self.paths.append(path)
+//                    
+//                    //                let reference = FIRStorage.storage().referenceWithPath(val["thumbnail_path"]!)
+//                }
+//                
+//                
+//            }
+//            print ("reloading data")
+//            self.tableView.reloadData()
+//        })
         
-        ref.observeEventType(FIRDataEventType.ChildAdded, withBlock: { (snapshot) -> Void in
-            self.co.append(snapshot)
-            self.tableView.insertRows(at: [IndexPath(row: self.comments.count-1, section: self.kSectionComments)], with: UITableViewRowAnimation.automatic)
-        })
-        
-        
+
+//
         
         
         
@@ -98,18 +169,18 @@ class ReelViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView!.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.view?.addSubview(self.tableView)
         
-        api.getData({data, error -> Void in
-            if (data != nil) {
-                self.items = NSMutableArray(array: data)
-                print ("check this")
-//                print(self.items)
-                self.tableView!.reloadData()
-//                self.view
-            } else {
-                print("api.getData failed")
-                print(error)
-            }
-        })
+//        api.getData({data, error -> Void in
+//            if (data != nil) {
+//                self.items = NSMutableArray(array: data)
+//                print ("check this")
+////                print(self.items)
+//                self.tableView!.reloadData()
+////                self.view
+//            } else {
+//                print("api.getData failed")
+//                print(error)
+//            }
+//        })
         
 //        ImageAPI({data, error -> Void in
 //            if (data != nil) {
@@ -130,7 +201,7 @@ class ReelViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return self.items.count;
+        return paths.count;
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
@@ -142,23 +213,49 @@ class ReelViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        } else {
 //            cell.textLabel!.text = "No Name"
 //        }
-//        
+//
 //        if let desc = self.items[indexPath.row]["description"] as? NSString {
 //            cell.detailTextLabel!.text = desc as String
 //        }
 //        
 //        print (String(self.items[indexPath.row]["artworkUrl60"]))
         
-            if let urlString = self.items[indexPath.row]["artworkUrl512"] as? NSString {
-                if let url = NSURL(string: urlString as String) {
-                    if let data = NSData(contentsOfURL: url) {
-                        cell.imageCellView.image = UIImage(data: data)
-                        print ("setting image")
-                    }
-                }
+        var index = indexPath.row
+        print("index: " + String(index))
+        let path = paths[indexPath.row]
+    
+        let reference = FIRStorage.storage().referenceWithPath(path)
+        reference.dataWithMaxSize(1 * 2048 * 2048) { (data, error) -> Void in
+            if (error != nil) {
+                print(error)
+            } else {
+                print ("Setting image")
+                cell.imageCellView.image = UIImage(data: data!)
             }
+        }
+        
+        var refLive: FIRDatabaseReference!
+        refLive = FIRDatabase.database().referenceWithPath("/jaunt/" + defaults.stringForKey("jauntid")! + "/photos/")
+        //
+        refLive.observeEventType(FIRDataEventType.ChildAdded, withBlock: { (snapshot) -> Void in
+            print ("detected update on fbase in function")
+            let value = snapshot.value as? NSDictionary
+            let photo = value!
+            print(photo["thumbnail_path"]!)
             
 
+            
+        
+//            if let urlString = self.items[indexPath.row]["artworkUrl512"] as? NSString {
+//                if let url = NSURL(string: urlString as String) {
+//                    if let data = NSData(contentsOfURL: url) {
+//                        cell.imageCellView.image = UIImage(data: data)
+//                        print ("setting image")
+//                    }
+//                }
+//            }
+        
+        })
         
         
         
@@ -189,26 +286,23 @@ class ReelViewController: UIViewController, UITableViewDelegate, UITableViewData
     func startTimer() {
         let queue = dispatch_queue_create("com.domain.app.timer", nil) // again, you can use `dispatch_get_main_queue()` if you want to use the main queue
         timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
-        dispatch_source_set_timer(timer!, DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC, 1 * NSEC_PER_SEC) // every 3 seconds for now..., with leeway of 1 second
+        dispatch_source_set_timer(timer!, DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC, 1 * NSEC_PER_SEC) // every 3 seconds for now..., with leeway of 1 second
         dispatch_source_set_event_handler(timer!) { [weak self] in
             
-            if let table = self!.tableView {
-                if let user = defaults.stringForKey("loggedInUser"){
-                    if user != "" {
-                        print ("timer test...force pulling new table data because logged in")
-//                        table.reloadData()
-                    } else {
-                        print ("timer test...no data to pull, logged out")
-
-                        self!.items = []
-                        self!.imageList = []
-//                        table.reloadData()
-                    }
+            if delegate.controller?.getCurrentPage() == 2 {
+                print ("visible")
+                let code = String(defaults.stringForKey("shortcode"))
+                if (code != "") {
+                    print ("...and updating")
+                    self!.updateTable()
                 } else {
-                    print ("unwrap error")
+                    print ("not in a jaunt!")
                 }
                 
+            } else {
+                print ("invisible")
             }
+            
         }
         dispatch_resume(timer!)
     }

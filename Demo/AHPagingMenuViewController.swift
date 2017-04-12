@@ -275,6 +275,10 @@ class AHPagingMenuViewController: UIViewController, UIScrollViewDelegate
         }
     }
     
+    func getCurrentPage() -> NSInteger {
+        return currentPage
+    }
+    
     internal func resetNavBarConfig()
     {
         

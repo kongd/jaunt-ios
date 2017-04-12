@@ -15,16 +15,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
 
     var window: UIWindow?
     var v4: ReelViewController?
+    var controller: AHPagingMenuViewController?
     
     override init() {
         //Firebase configure, once per app lunch
         FIRApp.configure()
     }
+    
+    func populateDefaults(key: String) {
+        if let output = defaults.objectForKey(key) {
+            
+        } else {
+            defaults.setObject("", forKey: key)
+        }
+    }
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+        populateDefaults("jauntid")
+        populateDefaults("uid")
+        populateDefaults("shortcode")
+        populateDefaults("privacy")
+        populateDefaults("loggedInUser")
+
+
         
         let storyboard = UIStoryboard(name: "CamViewController", bundle: nil)
         let v1 = storyboard.instantiateViewControllerWithIdentifier("CamViewController")
@@ -34,21 +49,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
         v4 = ReelViewController()
         v4!.view.backgroundColor = UIColor.lightGrayColor()
         
-        let controller = AHPagingMenuViewController(controllers: [v1,v2,v4!,v3], icons: NSArray(array: [UIImage(named:"photo")!, UIImage(named:"map")!, UIImage(named:"color")!, UIImage(named:"conf")!]), position:0)
-        controller.setShowArrow(true)
-        controller.setTransformScale(true)
-        controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
-        controller.setSelectColor(UIColor(red: 0.963, green: 0.266, blue: 0.176, alpha: 1.000))
+        controller = AHPagingMenuViewController(controllers: [v1,v2,v4!,v3], icons: NSArray(array: [UIImage(named:"photo")!, UIImage(named:"map")!, UIImage(named:"color")!, UIImage(named:"conf")!]), position:0)
+        controller!.setShowArrow(true)
+        controller!.setTransformScale(true)
+        controller!.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
+        controller!.setSelectColor(UIColor(red: 0.963, green: 0.266, blue: 0.176, alpha: 1.000))
 
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window!.rootViewController = controller
         self.window!.makeKeyAndVisible()
         
         
-        if ((controller.delegate?.AHPagingMenuDidChangeMenuPosition!(1, to: 2)) != nil) {
-            print ("how even")
-        }
-        
+
         return true;
     }
 
