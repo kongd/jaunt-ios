@@ -47,7 +47,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 //        let london = Location(title: "2 Photos", coordinate: CLLocationCoordinate2D(latitude: 42.29398, longitude: -83.71250), info: "photo pin")
         
 //        mapView!.addAnnotation(london)
-        let currLoc = Location(title: "You are Here", coordinate: CLLocationCoordinate2D(latitude: 42.2934179, longitude: -83.7116859), info: "user location")
+        let currLoc = Location(title: "Current Location", coordinate: CLLocationCoordinate2D(latitude: TEST_LATITUDE, longitude: TEST_LONGITUDE), info: "user location")
         mapView!.addAnnotation(currLoc)
     }
     

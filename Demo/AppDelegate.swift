@@ -14,6 +14,7 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
 
     var window: UIWindow?
+    var v4: ReelViewController?
     
     override init() {
         //Firebase configure, once per app lunch
@@ -30,25 +31,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
         
         let v2 = MapViewController()
         let v3 = SettingsViewController()
-        let v4 = ReelViewController()
-        v4.view.backgroundColor = UIColor.lightGrayColor()
+        v4 = ReelViewController()
+        v4!.view.backgroundColor = UIColor.lightGrayColor()
         
-        //Default
-        // var controller = AHPagingMenuViewController(controllers: [v1,v2,v3,v4,v5], icons: ["Page 1", "Page 2", "Page 3", "Page 4", "Page 5"], position:2)
-
-        //Like Tinder s2
-        let controller = AHPagingMenuViewController(controllers: [v1,v2,v4,v3], icons: NSArray(array: [UIImage(named:"photo")!,UIImage(named:"map")!, UIImage(named:"color")!, UIImage(named:"conf")!]), position:0)
+        let controller = AHPagingMenuViewController(controllers: [v1,v2,v4!,v3], icons: NSArray(array: [UIImage(named:"photo")!, UIImage(named:"map")!, UIImage(named:"color")!, UIImage(named:"conf")!]), position:0)
         controller.setShowArrow(true)
         controller.setTransformScale(true)
         controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
         controller.setSelectColor(UIColor(red: 0.963, green: 0.266, blue: 0.176, alpha: 1.000))
-        
-        //Nav - Icons e Strings
-        //var controller = AHPagingMenuViewController(controllers: [v1,v2,v3,v4,v5], icons: NSArray(array: [UIImage(named:"photo")!,"Love", UIImage(named:"conf")!, UIImage(named:"message")!, "Map"]), position:2)
-        
+
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window!.rootViewController = controller
         self.window!.makeKeyAndVisible()
+        
+        
+        if ((controller.delegate?.AHPagingMenuDidChangeMenuPosition!(1, to: 2)) != nil) {
+            print ("how even")
+        }
         
         return true;
     }
@@ -76,11 +75,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
     }
     
     func AHPagingMenuDidChangeMenuFrom(form: AnyObject, to: AnyObject) {
-        
+            print ("delegate called")
     }
     
     func AHPagingMenuDidChangeMenuPosition(form: NSInteger, to: NSInteger) {
-        
+//        self.delegate?.AHPagingMenuDidChangeMenuPosition?(1, to: 2)
+
+        print ("hmasdfmmm")
+        if (form == 1 && to == 2) {
+            print ("teasdfst")
+        }
     }
 
 

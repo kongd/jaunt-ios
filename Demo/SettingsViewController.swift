@@ -26,6 +26,10 @@ var jauntTextField = UITextField()
 
 var activityIndicator = UIActivityIndicatorView()
 
+
+let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
+
 class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     func buildSettingsView() {
@@ -312,6 +316,33 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     func leaveJaunt(sender: UIButton) {
         print("leaving jaunt...")
         defaults.setObject("", forKey: "shortcode")
+        
+        let parameters = [
+            "user_id": defaults.stringForKey("uid")!,
+            "shortcode":defaults.stringForKey("shortcode")!
+        ]
+        
+        Alamofire.request(.POST, "http://52.14.166.41:8000/api/jaunt/create/", parameters: parameters, encoding:.JSON).responseJSON
+            { response in switch response.result {
+            case .Success(let JSON):
+                print("Success with JSON: \(JSON)")
+                
+                let response = JSON as! NSDictionary
+                print(response)
+                
+                let alert = UIAlertController(title: "Jaunt left!", message: "You're now out of this Jaunt!", preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(alert, animated: true, completion: nil)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: {(action:UIAlertAction!) in self.buildSettingsView()
+                }))
+                
+            case .Failure(let error):
+                print("Request failed with error: \(error)")
+                let alert = UIAlertController(title: "Network Error", message: "Looks like something went very wrong.", preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(alert, animated: true, completion: nil)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                }
+        }
+        
         buildSettingsView()
     }
     
@@ -323,6 +354,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         defaults.setObject("", forKey: "shortcode")
         defaults.setObject("", forKey: "uid")
         defaults.setObject("", forKey: "location")
+        defaults.setObject("", forKey: "jauntid")
+        
+        // Dumps all existing photos
+        print ("dropping photos...")
+        delegate.v4!.items = []
+        delegate.v4!.imageList = []
+        delegate.v4!.tableView.reloadData()
         buildSettingsView()
     }
     
@@ -364,35 +402,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
-//        paramets = [
-//            "
-//        ]
-//        
-//        Alamofire.request(.GET, "http://52.14.166.41:8000/api/membership/", parameters: parameters, encoding:.JSON).responseJSON
-//            { response in switch response.result {
-//            case .Success(let JSON):
-//                print("Success with JSON: \(JSON)")
-//                
-//                let response = JSON as! NSDictionary
-//                print(response)
-//                defaults.setObject(response["shortcode"], forKey: "shortcode")
-//                print(defaults)
-//                
-//                let alert = UIAlertController(title: "Jaunt created!", message: "You've now created the Jaunt '" + String(response["shortcode"]!) + "'. Give this code to your friends!", preferredStyle: UIAlertControllerStyle.Alert)
-//                self.presentViewController(alert, animated: true, completion: nil)
-//                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: {(action:UIAlertAction!) in self.buildSettingsView()
-//                }))
-//                
-//                
-//                
-//                
-//            case .Failure(let error):
-//                print("Request failed with error: \(error)")
-//                let alert = UIAlertController(title: "Network Error", message: "Looks like something went very wrong.", preferredStyle: UIAlertControllerStyle.Alert)
-//                self.presentViewController(alert, animated: true, completion: nil)
-//                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-//                }
-//        }
+        
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             NSLog("############After login func")
@@ -429,9 +439,37 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 userTextField.becomeFirstResponder()
             } else {
                 print ("successfully created user")
-                defaults.setObject((user?.email)!, forKey:"loggedInUser")
-                defaults.setObject((user?.uid)!, forKey:"uid")
-                self.buildSettingsView()
+                
+                // Register with our server
+                print ("uid: " + defaults.stringForKey("uid")!)
+                print ("loggedInUser: " + defaults.stringForKey("loggedInUser")!)
+                
+                
+                
+                let parameters = [
+                    "user_id":(user?.uid)!,
+                    "email":(user?.email)!
+                ]
+                
+                Alamofire.request(.POST, "http://52.14.166.41:8000/api/user/create/", parameters: parameters, encoding:.JSON).responseJSON
+                    { response in switch response.result {
+                    case .Success(let JSON):
+                        print("Success with JSON: \(JSON)")
+                        
+                        let response = JSON as! NSDictionary
+                        
+                        defaults.setObject((user?.email)!, forKey:"loggedInUser")
+                        defaults.setObject((user?.uid)!, forKey:"uid")
+                        
+                        self.buildSettingsView()
+                        
+                    case .Failure(let error):
+                        print("Request failed with error: \(error)")
+                        let alert = UIAlertController(title: "Network Error", message: "User creation error.", preferredStyle: UIAlertControllerStyle.Alert)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                        }
+                }
             }
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -441,6 +479,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 activityIndicator.removeFromSuperview()
             })
         }
+
     }
     
     func registerUser(sender: UIButton) {

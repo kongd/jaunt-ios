@@ -23,6 +23,7 @@
 		9A11568D1E78C90E003F2602 /* arrowRight@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1156851E78C90E003F2602 /* arrowRight@4x.png */; };
 		9A11568F1E78D23C003F2602 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11568E1E78D23C003F2602 /* MapViewController.swift */; };
 		9A1156911E78D277003F2602 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1156901E78D277003F2602 /* Location.swift */; };
+		9A1539811E9D73A2009BBE89 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1539801E9D73A2009BBE89 /* ImageCell.swift */; };
 		9A1D01101E7A2DEE00268F4E /* CamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1D010F1E7A2DEE00268F4E /* CamViewController.swift */; };
 		9A1D01121E7A32DD00268F4E /* CamViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D01111E7A32DD00268F4E /* CamViewController.storyboard */; };
 		9A40CBD91E95DD370031DB96 /* MaterialCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40CBD81E95DD370031DB96 /* MaterialCard.swift */; };
@@ -30,6 +31,9 @@
 		9A77E1731E93318C00FA8D2C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A77E1721E93318C00FA8D2C /* SettingsViewController.swift */; };
 		9A77E1751E933E5400FA8D2C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A77E1741E933E5400FA8D2C /* Globals.swift */; };
 		9A977DB31E8B5A1C00C83646 /* transparent_x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A977DB21E8B5A1C00C83646 /* transparent_x.png */; };
+		9AD11CD61E9D9F7E00069C29 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD11CD51E9D9F7E00069C29 /* circle.png */; };
+		9AD11CD81E9DA26300069C29 /* circlr-test.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD11CD71E9DA26300069C29 /* circlr-test.png */; };
+		9AD11CDA1E9DA35500069C29 /* test-again.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD11CD91E9DA35500069C29 /* test-again.png */; };
 		EB45B569F187B0670210681F /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B368A241A320D24BA155D0 /* Pods_Demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +86,7 @@
 		9A1156851E78C90E003F2602 /* arrowRight@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowRight@4x.png"; sourceTree = "<group>"; };
 		9A11568E1E78D23C003F2602 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		9A1156901E78D277003F2602 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		9A1539801E9D73A2009BBE89 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		9A1D010F1E7A2DEE00268F4E /* CamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CamViewController.swift; sourceTree = "<group>"; };
 		9A1D01111E7A32DD00268F4E /* CamViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CamViewController.storyboard; sourceTree = "<group>"; };
 		9A40CBD81E95DD370031DB96 /* MaterialCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCard.swift; sourceTree = "<group>"; };
@@ -89,6 +94,9 @@
 		9A77E1721E93318C00FA8D2C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9A77E1741E933E5400FA8D2C /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		9A977DB21E8B5A1C00C83646 /* transparent_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transparent_x.png; sourceTree = "<group>"; };
+		9AD11CD51E9D9F7E00069C29 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
+		9AD11CD71E9DA26300069C29 /* circlr-test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circlr-test.png"; sourceTree = "<group>"; };
+		9AD11CD91E9DA35500069C29 /* test-again.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-again.png"; sourceTree = "<group>"; };
 		F446230A9FA24F10498E9A30 /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,15 +150,19 @@
 				9A11568E1E78D23C003F2602 /* MapViewController.swift */,
 				9A1156901E78D277003F2602 /* Location.swift */,
 				9A10D0481E9ABED500926832 /* ReelViewController.swift */,
+				9A1539801E9D73A2009BBE89 /* ImageCell.swift */,
 				65ECC1CA1B0A6333002958AF /* Example5ViewController.swift */,
 				65ECC1C81B0A6315002958AF /* Example5ViewController.xib */,
 				65ECC1C51B0A4D57002958AF /* AHPagingMenuViewController */,
 				65DBCE451AFFA53E00F84E67 /* Images.xcassets */,
 				9A11567E1E78C90E003F2602 /* arrowLeft.png */,
 				9A11567F1E78C90E003F2602 /* arrowLeft@2x.png */,
+				9AD11CD51E9D9F7E00069C29 /* circle.png */,
 				9A1156801E78C90E003F2602 /* arrowLeft@3x.png */,
+				9AD11CD91E9DA35500069C29 /* test-again.png */,
 				9A977DB21E8B5A1C00C83646 /* transparent_x.png */,
 				9A1156811E78C90E003F2602 /* arrowLeft@4x.png */,
+				9AD11CD71E9DA26300069C29 /* circlr-test.png */,
 				9A1156821E78C90E003F2602 /* arrowRight.png */,
 				9A1156831E78C90E003F2602 /* arrowRight@2x.png */,
 				9A1156841E78C90E003F2602 /* arrowRight@3x.png */,
@@ -308,7 +320,10 @@
 				65ECC1C91B0A6315002958AF /* Example5ViewController.xib in Resources */,
 				9A1156861E78C90E003F2602 /* arrowLeft.png in Resources */,
 				9A1156891E78C90E003F2602 /* arrowLeft@4x.png in Resources */,
+				9AD11CD81E9DA26300069C29 /* circlr-test.png in Resources */,
+				9AD11CD61E9D9F7E00069C29 /* circle.png in Resources */,
 				65DBCE461AFFA53E00F84E67 /* Images.xcassets in Resources */,
+				9AD11CDA1E9DA35500069C29 /* test-again.png in Resources */,
 				9A54AA4C1E946F1A006556F2 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,6 +392,7 @@
 			files = (
 				9A1D01101E7A2DEE00268F4E /* CamViewController.swift in Sources */,
 				65DBCE5F1B001C5900F84E67 /* AHPagingMenuViewController.swift in Sources */,
+				9A1539811E9D73A2009BBE89 /* ImageCell.swift in Sources */,
 				9A10D0491E9ABED500926832 /* ReelViewController.swift in Sources */,
 				65DBCE3F1AFFA53E00F84E67 /* AppDelegate.swift in Sources */,
 				9A11568F1E78D23C003F2602 /* MapViewController.swift in Sources */,

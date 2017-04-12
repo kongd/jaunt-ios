@@ -8,9 +8,14 @@
 
 import Foundation
 import AVFoundation
+import Alamofire
 import UIKit
+import FirebaseStorage
+import Firebase
 
 class CamViewController: UIViewController {
+    
+    var imageData = NSData()
     
     var cameraView = UIView()
     var captureSession = AVCaptureSession()
@@ -71,11 +76,10 @@ class CamViewController: UIViewController {
         }
         
         //capture button
-        captureButton.setTitle("", forState: .Normal)
-        captureButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        captureButton.frame = CGRectMake(15, -50, 325, 1050)
-        captureButton.addTarget(self, action: #selector(CamViewController.captureImage(_:)), forControlEvents: .TouchUpInside)
-        self.view.addSubview(captureButton)
+        self.captureButton = UIButton(frame: CGRectMake(SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT - 200,100,100))
+        self.captureButton.addTarget(self, action: "captureImage:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.captureButton.setImage(UIImage(named: "test-again.png"), forState: UIControlState.Normal)
+        self.view.addSubview(self.captureButton)
     }
     
     func captureImage(sender: UIButton) {
@@ -84,9 +88,9 @@ class CamViewController: UIViewController {
         if let videoConnection = sessionOutput.connectionWithMediaType(AVMediaTypeVideo) {
             sessionOutput.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {
                 buffer, error in
-                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
+                self.imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
                 
-                let dataProvider = CGDataProviderCreateWithCFData(imageData)
+                let dataProvider = CGDataProviderCreateWithCFData(self.imageData)
                 let cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider!, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
                 let image = UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.Right)
                 
@@ -96,7 +100,6 @@ class CamViewController: UIViewController {
                 self.cameraView.addSubview(self.captureImageView)
                 
                 print("writing image data to somewhere...")
-                //write imageData to somewhere
                 
                 //Create delete icon
                 
@@ -113,6 +116,7 @@ class CamViewController: UIViewController {
                 self.sendButton.addTarget(self, action: "addToJaunt:", forControlEvents: UIControlEvents.TouchUpInside)
                 self.sendButton.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50)
                 self.sendButton.setTitle("Add to Jaunt", forState: UIControlState.Normal)
+                self.sendButton.titleLabel?.font = UIFont.systemFontOfSize(25)
                 self.view.addSubview(self.sendButton)
                 
                 
@@ -142,14 +146,157 @@ class CamViewController: UIViewController {
             self.presentViewController(alert, animated: true, completion: nil)
             alert.addAction(UIAlertAction(title: "Join Jaunt", style: UIAlertActionStyle.Default, handler:  {(action:UIAlertAction!) in self.goToSettings()
             }))
+        } else {
+//            Upload to firebase
+            let storage = FIRStorage.storage()
+            let storageRef = storage.reference()
+            
+            
+            // Create file metadata to update
+            let newMetadata = FIRStorageMetadata()
+            newMetadata.contentType = "image/jpeg";
+            
+            // Create a reference to the file you want to upload
+            let randomName = randomStringWithLength(10)
+            let imageRef = storageRef.child("images/" + (randomName as String) + ".jpg")
+            
+            // Upload the file to the path "images/rivers.jpg"
+            let uploadTask = imageRef.putData(imageData, metadata: newMetadata) { (metadata, error) in
+                guard let metadata = metadata else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+                // Metadata contains file metadata such as size, content-type, and download URL.
+                let downloadURL = metadata.downloadURL
+            }
+            
+            uploadTask.observeStatus(FIRStorageTaskStatus.Success, handler: { (snapshot) in
+                print ("upload success!")
+                
+                // get user, then post to api/photo
+                self.updateServer(randomName as String)
+                
+            })
+            
+            uploadTask.observeStatus(FIRStorageTaskStatus.Failure, handler: { (snapshot) in
+                print ("upload failure...")
+                print (snapshot.error)
+//                if let error = snapshot.error as! NSError {
+//                    switch (FIRStorageErrorCode(rawValue: error.code)!) {
+//                    case .objectNotFound:
+//                        // File doesn't exist
+//                        print ("file does not exist")
+//                        break
+//                    case .unauthorized:
+//                        // User doesn't have permission to access file
+//                        print ("user has no permissions")
+//                        break
+//                    case .cancelled:
+//                        // User canceled the upload
+//                        break
+//                        
+//                        /* ... */
+//                        
+//                    case .unknown:
+//                        // Unknown error occurred, inspect the server response
+//                        print ("unknown error")
+//                        break
+//                    default:
+//                        // A separate error occurred. This is a good place to retry the upload.
+//                        print ("other error")
+//                        break
+//                    }
+//                }
+            })
+        }
+    }
+    
+    func updateServer(randomString: String) {
+        print ("updating on our server...")
+        
+//        Get user's jaunt id
+        
+        Alamofire.request(.GET, "http://52.14.166.41:8000/api/user/" + defaults.stringForKey("uid")! + "/", parameters: nil, encoding:.JSON).responseJSON
+            { response in switch response.result {
+            case .Success(let JSON):
+                print("Success with JSON: \(JSON)")
+                
+                let response = JSON as! NSDictionary
+                print(response)
+                defaults.setObject(response["current_jaunt"], forKey: "jauntid")
+
+                
+            case .Failure(let error):
+                print("Request failed with error: \(error)")
+                let alert = UIAlertController(title: "Network Error", message: "Looks like something went very wrong.", preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(alert, animated: true, completion: nil)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                }
         }
         
-        //write imageData to somewhere
+        
+        // Post to db, with info
+        let path_name = ("/images/" + randomString + ".jpg")
+        
+        let parameters : [String : AnyObject] = [
+            "owner": defaults.stringForKey("uid")!,
+            "jaunt_id": defaults.integerForKey("jauntid"),
+            "original_path": path_name,
+            "latitude": TEST_LATITUDE,
+            "longitude": TEST_LONGITUDE
+        ]
+        
+        Alamofire.request(.POST, "http://52.14.166.41:8000/api/photo/", parameters: parameters, encoding:.JSON).responseJSON
+            { response in switch response.result {
+            case .Success(let JSON):
+                print("Success with JSON: \(JSON)")
+
+                let response = JSON as! NSDictionary
+                print(response)
+                
+                let alert = UIAlertController(title: "Photo uploaded!", message: "Upload success!", preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(alert, animated: true, completion: nil)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: {(action:UIAlertAction!) in self.resetCameraView()
+                }))
+
+            case .Failure(let error):
+                print("Request failed with error: \(error)")
+                let alert = UIAlertController(title: "Network Error", message: "Looks like something went very wrong.", preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(alert, animated: true, completion: nil)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                }
+        }
         
         
     }
     
+    func resetCameraView() {
+        deleteButton.removeFromSuperview()
+        sendButton.removeFromSuperview()
+        captureImageView.removeFromSuperview()
+        
+        
+        self.view.addSubview(captureButton)
+    }
+    
     func goToSettings() {
         self.pagingMenuViewController().setPosition(self.pagingMenuViewController().viewControllers!.count - 1, animated: true)
+//        self.pagingMenuViewController().delegate
     }
+    
+    func randomStringWithLength (len : Int) -> NSString {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        
+        let randomString : NSMutableString = NSMutableString(capacity: len)
+        
+        for (var i=0; i < len; i++){
+            var length = UInt32 (letters.length)
+            var rand = arc4random_uniform(length)
+            randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
+        }
+        
+        return randomString
+    }
+
 }
