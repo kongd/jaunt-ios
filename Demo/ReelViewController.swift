@@ -64,7 +64,9 @@ class ReelViewController: UIViewController, UITableViewDelegate, UITableViewData
         let jauntid = defaults.stringForKey("jauntid")!
         print (jauntid)
         if jauntid != "" {
-            self.tableView.hidden = false
+            if let tv = self.tableView {
+                tv.hidden = false
+            }
             print ("inside if")
             ref.child("jaunt").child(jauntid).child("photos").observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
                 // Get user value
