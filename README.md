@@ -1,3 +1,3 @@
 # jaunt-ios
 
-do not convert swift syntax!!
+Jaunt is an aggregate photo album app, for all your friends (with iPhones) in a group.
